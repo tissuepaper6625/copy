@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    container_name: dao-backend-container
+    ports:
+      - "4002:4002"
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    image: mongo
+    container_name: dao-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+
+
